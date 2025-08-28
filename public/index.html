@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Livro Sonorizado - Protótipo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #fff;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      color: #ffcc00;
+    }
+    #book {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #1e1e1e;
+      border-radius: 10px;
+    }
+    button {
+      background: #ffcc00;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background: #ffaa00;
+    }
+  </style>
+</head>
+<body>
+  <h1>Protótipo: Livro Sonorizado</h1>
+  <div id="book">
+    <p><strong>Capítulo 1</strong></p>
+    <p>Era uma noite silenciosa, e o vento soprava pelas árvores. De repente, um trovão ecoou ao longe...</p>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <button onclick="playMusic('trilha1')">Tocar Trilha 1</button>
+    <button onclick="playMusic('trilha2')">Tocar Trilha 2</button>
+    <button onclick="playMusic('trilha3')">Tocar Trilha 3</button>
+    <button onclick="playEffect('raio')">Som de Trovão</button>
+    <button onclick="stopAll()">Parar Sons</button>
+  </div>
+
+  <script>
+    // Criando os áudios
+    const sounds = {
+      trilha1: new Audio("trilha1.mp3"),
+      trilha2: new Audio("trilha2.mp3"),
+      trilha3: new Audio("trilha3.mp3"),
+      raio: new Audio("raio.mp3"),
+    };
+
+    function playMusic(name) {
+      stopAll();
+      sounds[name].loop = true; // trilhas sonoras ficam em loop
+      sounds[name].play();
+    }
+
+    function playEffect(name) {
+      sounds[name].play();
+    }
+
+    function stopAll() {
+      for (let key in sounds) {
+        sounds[key].pause();
+        sounds[key].currentTime = 0;
+      }
+    }
+  </script>
+</body>
+</html>
