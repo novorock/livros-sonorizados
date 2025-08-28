@@ -1,0 +1,12 @@
+{
+  "name": "livro-sonoro",
+  "version": "1.0.0",
+  "description": "Protótipo de leitura imersiva com trilha sonora e efeitos.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
