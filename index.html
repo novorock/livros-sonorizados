@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editor de Livro Sonorizado — Protótipo IA</title>
+  <style>
+    :root { --bg:#0f1220; --panel:#151933; --ink:#e9ecf1; --brand:#5b7cfa; }
+    * { box-sizing: border-box }
+    body { margin:0; font-family: system-ui, -apple-system, Arial, sans-serif; background:var(--bg); color:var(--ink); }
+    header { padding:16px; background:linear-gradient(90deg,#3a0ca3,#7209b7); box-shadow:0 2px 12px rgba(0,0,0,.25) }
+    h1 { margin:0; font-size:18px }
+    main { max-width:980px; margin:0 auto; padding:16px }
+    .card { background:var(--panel); padding:16px; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,.35); margin-bottom:16px }
+    textarea, input[type=text] { width:100%; padding:12px; border-radius:12px; border:1px solid #2b2f4a; background:#0b0e1a; color:var(--ink); }
+    button { background:var(--brand); color:#fff; border:none; padding:10px 14px; border-radius:12px; cursor:pointer; }
+    button.secondary { background:#2b2f4a }
+    .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+    .pill { display:inline-block; padding:4px 10px; border-radius:999px; background:#233; font-size:12px; opacity:.9 }
+    .page { white-space: pre-wrap; line-height:1.6; font-size:18px }
+    .small { font-size:12px; opacity:.75 }
+    .list { display:grid; grid-template-columns: 1fr; gap:10px; }
+    @media(min-width:800px){ .list { grid-template-columns: 1fr 1fr } }
+    .pageItem { background:#0b0e1a; border:1px solid #2b2f4a; padding:12px; border-radius:12px }
+    .footer { text-align:center; padding:12px; opacity:.7; font-size:12px }
+  </style>
+</head>
+<body>
+  <header><h1>📖 Editor de Livro Sonorizado — Protótipo IA</h1></header>
+  <main>
+    <div class="card">
+      <h3>1) Texto do livro</h3>
+      <p class="small">Use o texto de exemplo (“João e Maria”) ou cole o seu.</p>
+      <div class="row" style="margin-bottom:8px">
+        <button id="load-sample" class="secondary">Carregar exemplo</button>
+        <button id="process">Processar com IA básica</button>
+      </div>
+      <textarea id="input-text" rows="10" placeholder="Cole aqui seu texto..."></textarea>
+      <p class="small">A análise divide em páginas (~450 caracteres), classifica o clima (calma/suspense/ação) e detecta eventos (trovão, porta, passos, explosão, risada, sino).</p>
+    </div>
+
+    <div class="card">
+      <h3>2) Páginas detectadas</h3>
+      <div id="summary" class="small">Nenhuma página ainda.</div>
+      <div id="pages" class="list"></div>
+    </div>
+
+    <div class="card">
+      <h3>3) Leitor imersivo</h3>
+      <div class="row" style="margin-bottom:8px">
+        <span class="pill" id="mood-pill">Trilha: —</span>
+        <span class="pill" id="page-pill">Página: —</span>
+      </div>
+      <div class="row" style="margin-bottom:8px">
+        <button id="start">Iniciar</button>
+        <button id="prev" class="secondary">◀ Anterior</button>
+        <button id="next" class="secondary">Próxima ▶</button>
+        <button id="mute" class="secondary">Som ligado</button>
+      </div>
+      <div class="page" id="page-text">Carregue e processe um texto para começar.</div>
+    </div>
+
+    <div class="card">
+      <h3>4) Comandos em português</h3>
+      <p class="small">Ex.: “troque a trilha desta página para suspense”, “remova efeitos”, “tocar sino agora”.</p>
+      <div class="row">
+        <input id="cmd" type="text" placeholder="Digite um comando..." />
+        <button id="run-cmd">Executar</button>
+      </div>
+      <div id="cmd-log" class="small" style="margin-top:8px"></div>
+    </div>
+
+    <div class="footer">Protótipo gerando áudio sintético livre de direitos (WebAudio). © Você</div>
+  </main>
+  <script src="/public/app.js"></script>
+</body>
+</html>
